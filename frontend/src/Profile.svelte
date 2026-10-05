@@ -1,6 +1,7 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import Swal from 'sweetalert2';
+    import { BASE_PATH } from './constants';
 
     let userRole = '';
     let profileData: any = null;
@@ -329,7 +330,7 @@
                                     <div class="mb-4 d-flex align-items-center gap-3">
                                         <div class="position-relative" style="width: 80px; height: 80px; cursor:pointer;" on:click={() => fileInput.click()}>
                                             <input type="file" bind:this={fileInput} accept="image/*" class="d-none" on:change={handleImageUpload}>
-                                            <img src={profileData.profile_pic ? `${import.meta.env.VITE_API_URL}${profileData.profile_pic}` : "/assets/img/user/user-01.jpg"} alt="img" class="img-fluid rounded-circle w-100 h-100" style="object-fit: cover; background: #eee;">
+                                            <img src={profileData.profile_pic ? `${import.meta.env.VITE_API_URL}${profileData.profile_pic}` : `${BASE_PATH}/assets/img/user/user-01.jpg`} alt="img" class="img-fluid rounded-circle w-100 h-100" style="object-fit: cover; background: #eee;">
                                             <div class="position-absolute w-100 h-100 top-0 start-0 d-flex justify-content-center align-items-center rounded-circle" style="background: rgba(0,0,0,0.5); opacity: 0; transition: opacity 0.3s;" on:mouseenter={(e) => e.currentTarget.style.opacity = '1'} on:mouseleave={(e) => e.currentTarget.style.opacity = '0'}>
                                                 {#if uploadingImage}
                                                     <div class="spinner-border text-light spinner-border-sm" role="status"></div>

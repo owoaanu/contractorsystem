@@ -21,9 +21,10 @@
   import SuperAdminDisputes from './SuperAdminDisputes.svelte';
 
   export let url = "";
+  const basepath = (import.meta.env.BASE_URL || "/").replace(/\/$/, "") || "/";
 </script>
 
-<Router {url}>
+<Router {url} {basepath}>
   <Route path="/">
     <Login />
   </Route>
@@ -48,22 +49,40 @@
   <Route path="/contractor/dashboard">
     <ContractorLayout><ContractorDashboard /></ContractorLayout>
   </Route>
+  <Route path="/dashboard">
+    <ContractorLayout><ContractorDashboard /></ContractorLayout>
+  </Route>
   <Route path="/contractor/profile">
     <ContractorLayout><Profile /></ContractorLayout>
   </Route>
   <Route path="/contractor/verification">
     <ContractorLayout><VerificationCenter /></ContractorLayout>
   </Route>
+  <Route path="/verification">
+    <ContractorLayout><VerificationCenter /></ContractorLayout>
+  </Route>
   <Route path="/contractor/messages">
+    <ContractorLayout><Messages /></ContractorLayout>
+  </Route>
+  <Route path="/messages">
     <ContractorLayout><Messages /></ContractorLayout>
   </Route>
   <Route path="/contractor/documents">
     <ContractorLayout><Documents /></ContractorLayout>
   </Route>
+  <Route path="/documents">
+    <ContractorLayout><Documents /></ContractorLayout>
+  </Route>
   <Route path="/contractor/settings">
     <ContractorLayout><ComingSoon /></ContractorLayout>
   </Route>
+  <Route path="/settings">
+    <ContractorLayout><ComingSoon /></ContractorLayout>
+  </Route>
   <Route path="/contractor/payments">
+    <ContractorLayout><ContractorPayments /></ContractorLayout>
+  </Route>
+  <Route path="/payments">
     <ContractorLayout><ContractorPayments /></ContractorLayout>
   </Route>
 

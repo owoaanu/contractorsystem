@@ -3,6 +3,7 @@
   import { navigate } from 'svelte-routing';
   import { Toast, showAlert } from './utils/alert';
   import { loadRemitaScript, processRemitaPayment } from './utils/payment';
+  import { LOGO_URL, BASE_PATH } from './constants';
 
   let companyName = '';
   let email = '';
@@ -469,7 +470,7 @@
         <!-- Top Section -->
         <div class="info-content col-11 me-auto ps-4 pe-0 mb-3 pb-2 mt-2">
           <div class="text-center mb-2 pe-4">
-            <img src="/assets/img/logo.png" alt="Logo" style="max-height: 60px;">
+            <img src={LOGO_URL} alt="Logo" style="max-height: 60px;">
           </div>
           <h3 class="fw-bold mb-3 text-center" style="color: #FF4667;">CONTRACTOR REGISTRATION</h3>
           
@@ -522,8 +523,8 @@
         </div>
 
         <!-- Notice Board Section -->
-        <div class="w-100 mt-auto position-relative" style="overflow: hidden;">
-          <img src="/assets/img/bg/bg-19.png" alt="img" class="w-100 h-100 position-absolute top-0 start-0" style="object-fit: cover; z-index: 0; pointer-events: none;">
+        <div class="w-100 mt-auto position-relative" style="overflow: hidden; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);">
+          <img src="{BASE_PATH}/assets/img/bg/bg-19.png" alt="" class="w-100 h-100 position-absolute top-0 start-0" style="object-fit: cover; opacity: 0.15; z-index: 0; pointer-events: none;">
           <div class="w-100 h-100 position-relative z-1 p-4 d-flex flex-column justify-content-center">
             <div class="row align-items-start">
               <div class="col-12 mb-3 pb-2 border-bottom border-light border-opacity-25">
@@ -568,7 +569,7 @@
       </div>
 
       <!-- Right Side Form Area -->
-      <div class="col-lg-6 d-flex align-items-center justify-content-center position-relative" style="background-image: url('/assets/img/bg/bg-20.png'); background-size: cover; background-position: center; background-repeat: no-repeat; background-color: #ffffff; min-height: 100vh;">
+      <div class="col-lg-6 d-flex align-items-center justify-content-center position-relative" style="background-image: url('{BASE_PATH}/assets/img/bg/bg-20.png'); background-size: cover; background-position: center; background-repeat: no-repeat; background-color: #ffffff; min-height: 100vh;">
         <!-- Soft Overlay for the background to make the form pop -->
         <div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(255,255,255,0.4); pointer-events: none;"></div>
         
@@ -578,7 +579,7 @@
               
               <!-- Mobile Logo -->
               <div class="img-logo text-center mb-4 d-lg-none">
-                <img src="/assets/img/logo.png" class="img-fluid" alt="Logo" style="max-height: 60px;">
+                <img src={LOGO_URL} class="img-fluid" alt="Logo" style="max-height: 60px;">
                 <h4 class="fw-bold mt-3" style="color: #FF4667;">Contractor Portal</h4>
               </div>
               
@@ -672,7 +673,7 @@
               {/if}
     
               <div class="text-center dont-have mt-4">
-                Already have an account? <a href="/login" on:click|preventDefault={() => navigate('/login')}>Sign In</a>
+                Already have an account? <a href="{BASE_PATH}/login" on:click|preventDefault={() => navigate('/login')}>Sign In</a>
               </div>
             </div>
           </div>

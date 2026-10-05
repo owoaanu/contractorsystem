@@ -3,6 +3,7 @@
   import ContractorSidebar from './ContractorSidebar.svelte';
   import { onMount } from 'svelte';
   import { navigate } from 'svelte-routing';
+  import { BASE_PATH } from './constants';
 
   let contractor = {
       company_name: 'Loading...',
@@ -87,13 +88,13 @@
     <div class="container">
       <div class="instructor-profile">
         <div class="instructor-profile-bg">
-          <img src="/assets/img/bg/card-bg-01.png" class="instructor-profile-bg-1" alt="">
+          <img src="{BASE_PATH}/assets/img/bg/card-bg-01.png" class="instructor-profile-bg-1" alt="">
         </div>
         <div class="row align-items-center row-gap-3">
           <div class="col-md-6">
             <div class="d-flex align-items-center">
               <span class="avatar flex-shrink-0 avatar-xxl avatar-rounded me-3 border border-white border-3 position-relative" style="width: 120px; height: 120px;">
-                <img src={contractor.profile_pic ? `${import.meta.env.VITE_API_URL}${contractor.profile_pic}` : "/assets/img/user/user-01.jpg"} alt="img" class="img-fluid rounded-circle w-100 h-100" style="object-fit: cover; background: #fff;">
+                <img src={contractor.profile_pic ? `${import.meta.env.VITE_API_URL}${contractor.profile_pic}` : `${BASE_PATH}/assets/img/user/user-01.jpg`} alt="img" class="img-fluid rounded-circle w-100 h-100" style="object-fit: cover; background: #fff;">
                 {#if contractor.status === 'verified' || contractor.status === 'approved'}
                   <span class="verify-tick" style="position: absolute; bottom: 5px; right: 5px; background: #28a745; color: #fff; border-radius: 50%; padding: 2px;"><i class="isax isax-verify5"></i></span>
                 {/if}

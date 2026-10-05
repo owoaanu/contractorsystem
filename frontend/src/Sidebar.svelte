@@ -33,7 +33,11 @@
           const payload = JSON.parse(atob(token.split('.')[1]));
           const room = `${role}_${payload.id}`;
           
-          const socket = io(import.meta.env.VITE_API_URL + '');
+          const apiUrl = import.meta.env.VITE_API_URL || '';
+          const isAbsolute = apiUrl.startsWith('http');
+          const socket = isAbsolute 
+              ? io(apiUrl, { path: '/socket.io' }) 
+              : io({ path: (apiUrl.replace(/\/$/, '') || '') + '/socket.io' });
           socket.on('connect', () => {
               socket.emit('join', room);
           });

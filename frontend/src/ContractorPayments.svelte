@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { navigate } from 'svelte-routing';
+  import { LOGO_URL } from './constants';
 
   let payments: any[] = [];
   let loading = true;
@@ -82,7 +83,7 @@
               top: 0; left: 0; right: 0; bottom: 0;
               z-index: -2; 
               opacity: 0.05;
-              background-image: url('${window.location.origin}/assets/img/logo.png');
+              background-image: url('${window.location.origin}${LOGO_URL}');
               background-repeat: no-repeat; 
               background-position: center; 
               background-size: 50%;
@@ -132,7 +133,7 @@
           <div class="watermark-text">EDO STATE UNIVERSITY, IYAMHO<br>CONTRACTOR SYSTEM</div>
           
           <div class="header">
-            <img src="${window.location.origin}/assets/img/logo.png" alt="Edo State University Logo">
+            <img src="${window.location.origin}${LOGO_URL}" alt="Edo State University Logo">
             <h2>Edo State University, Iyamho</h2>
             <h4>Official Payment Receipt</h4>
           </div>

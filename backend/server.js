@@ -64,11 +64,22 @@ if (process.env.NODE_ENV !== 'production') {
 
 const port = process.env.PORT || 3000;
 
+const allowedOrigins = process.env.CORS_ORIGIN 
+    ? process.env.CORS_ORIGIN.split(',').map(s => s.trim()) 
+    : ['http://localhost:5173', 'http://localhost:3000'];
+
 // Create HTTP server and attach Socket.io
 const server = http.createServer(app);
 const io = new Server(server, {
+    path: process.env.SOCKET_PATH || '/socket.io',
     cors: {
-        origin: "http://localhost:5173", credentials: true, // Allow frontend to connect
+        origin: (origin, callback) => {
+            if (!origin || allowedOrigins.includes('*') || allowedOrigins.includes(origin) || process.env.NODE_ENV === 'production') {
+                return callback(null, true);
+            }
+            callback(null, true);
+        },
+        credentials: true,
         methods: ["GET", "POST"]
     }
 });
@@ -93,13 +104,24 @@ io.on('connection', (socket) => {
     });
 });
 
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes('*') || allowedOrigins.includes(origin) || process.env.NODE_ENV === 'production') {
+            return callback(null, true);
+        }
+        callback(null, true);
+    },
+    credentials: true
+}));
 app.use(express.json());
-app.use(helmet());
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" })); // Allow images to load on frontend
+app.use(helmet({
+    contentSecurityPolicy: false // Allow inline scripts/styles needed by frontend bundles & CDN
+}));
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" })); // Allow images/docs to load on frontend
 app.use(cookieParser());
 
-// Serve uploads statically for admin dashboard viewing
+// Serve uploads statically under both /contractor/uploads and /uploads
+app.use('/contractor/uploads', express.static(uploadDir));
 app.use('/uploads', express.static(uploadDir));
 
 // Configure Multer for file uploads
@@ -214,13 +236,40 @@ const messageRoutes = require('./routes/messageRoutes')(db, logger, verifyToken,
 const otherRoutes = require('./routes/otherRoutes')(db, logger, verifyToken, authenticateToken, authLimiter, upload, PendingStore);
 const superAdminRoutes = require('./routes/superAdminRoutes')(db, logger, verifyToken, authenticateToken, authLimiter, upload, PendingStore, verifySuperAdmin);
 
-app.use(authRoutes);
-app.use(adminRoutes);
-app.use(contractorRoutes);
-app.use(paymentRoutes);
-app.use(messageRoutes);
-app.use(otherRoutes);
-app.use(superAdminRoutes);
+// Create unified router for all modular routes
+const apiRouter = express.Router();
+apiRouter.use(authRoutes);
+apiRouter.use(adminRoutes);
+apiRouter.use(contractorRoutes);
+apiRouter.use(paymentRoutes);
+apiRouter.use(messageRoutes);
+apiRouter.use(otherRoutes);
+apiRouter.use(superAdminRoutes);
+
+// Mount API routes under both /contractor and root / for proxy flexibility
+app.use('/contractor', apiRouter);
+app.use('/', apiRouter);
+
+// Serve frontend build statically if dist folder exists
+const distPath = path.join(__dirname, '../frontend/dist');
+if (fs.existsSync(distPath)) {
+    app.use('/contractor', express.static(distPath));
+    app.use(express.static(distPath));
+
+    // Client-side SPA catch-all fallback
+    app.use((req, res, next) => {
+        if (req.method !== 'GET') return next();
+        if (req.path.startsWith('/api') || 
+            req.path.startsWith('/contractor/api') || 
+            req.path.startsWith('/uploads') || 
+            req.path.startsWith('/contractor/uploads') ||
+            req.path.startsWith('/socket.io') ||
+            req.path.startsWith('/contractor/socket.io')) {
+            return next();
+        }
+        res.sendFile(path.join(distPath, 'index.html'));
+    });
+}
 
 const errorHandler = require('./middleware/errorHandler');
 

@@ -1,0 +1,12 @@
+{
+  "name": "contractorsystem",
+  "version": "1.0.0",
+  "description": "Edo State University Contractor Registration and Verification System",
+  "scripts": {
+    "init-db": "cd backend && npm run init-db",
+    "build:frontend": "cd frontend && npm run build",
+    "build": "cd frontend && npm run build",
+    "start:backend": "cd backend && node server.js",
+    "start": "cd backend && node server.js"
+  }
+}

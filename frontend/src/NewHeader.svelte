@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { navigate } from "svelte-routing";
+  import { LOGO_URL } from "./constants";
 
   let loggedIn = false;
   let user = { role: 'contractor', name: 'User' };
@@ -67,17 +68,17 @@
                 </a>
                 <div class="navbar-logo">
                     <a class="logo-white header-logo" href="#!" on:click|preventDefault={goToDashboard}>
-                        <img src="/assets/img/logo.png" class="logo" alt="Logo" style="max-height: 50px; object-fit: contain;">
+                        <img src={LOGO_URL} class="logo" alt="Logo" style="max-height: 50px; object-fit: contain;">
                     </a>
                     <a class="logo-dark header-logo" href="#!" on:click|preventDefault={goToDashboard}>
-                        <img src="/assets/img/logo-white.png" class="logo" alt="Logo" style="max-height: 50px; object-fit: contain;">
+                        <img src={LOGO_URL} class="logo" alt="Logo" style="max-height: 50px; object-fit: contain;">
                     </a>
                 </div>
             </div>
             <div class="main-menu-wrapper">								
                 <div class="menu-header">
                     <a href="#!" class="menu-logo" on:click|preventDefault={goToDashboard}>
-                        <img src="/assets/img/logo.png" class="img-fluid" alt="Logo" style="max-height: 50px; object-fit: contain;">
+                        <img src={LOGO_URL} class="img-fluid" alt="Logo" style="max-height: 50px; object-fit: contain;">
                     </a>
                     <a id="menu_close" class="menu-close" href="#!">
                         <i class="fas fa-times"></i>

@@ -1,12 +1,14 @@
 <script lang="ts">
+  import { LOGO_URL, BASE_PATH } from "./constants";
+  import { navigate } from "svelte-routing";
   const currentYear = new Date().getFullYear();
 </script>
 
 <!-- Footer -->
 <footer class="footer">
     <div class="footer-bg">
-        <img src="/assets/img/bg/footer-bg-01.png" class="footer-bg-1" alt="">
-        <img src="/assets/img/bg/footer-bg-02.png" class="footer-bg-2" alt="">
+        <img src="{BASE_PATH}/assets/img/bg/footer-bg-01.png" class="footer-bg-1" alt="">
+        <img src="{BASE_PATH}/assets/img/bg/footer-bg-02.png" class="footer-bg-2" alt="">
     </div>
     <div class="footer-top">
         <div class="container">
@@ -14,7 +16,7 @@
                 <div class="col-lg-4">
                     <div class="footer-about">
                         <div class="footer-logo">
-                            <img src="/images/app-logo.png" alt="Logo" style="height: 50px;">
+                            <img src={LOGO_URL} alt="Logo" style="height: 50px; object-fit: contain;">
                         </div>
                         <p>Platform designed to help contractors and Edo State University manage and track construction projects and verifications efficiently.</p>
                     </div>
@@ -25,9 +27,9 @@
                             <div class="footer-widget footer-menu">
                                 <h5 class="footer-title">Quick Links</h5>
                                 <ul>
-                                    <li><a href="/">Home</a></li>
-                                    <li><a href="/login">Login</a></li>
-                                    <li><a href="/registration">Register</a></li>
+                                    <li><a href="{BASE_PATH}/" on:click|preventDefault={() => navigate('/')}>Home</a></li>
+                                    <li><a href="{BASE_PATH}/login" on:click|preventDefault={() => navigate('/login')}>Login</a></li>
+                                    <li><a href="{BASE_PATH}/registration" on:click|preventDefault={() => navigate('/registration')}>Register</a></li>
                                 </ul>
                             </div>
                         </div>

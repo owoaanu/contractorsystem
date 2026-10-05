@@ -15,3 +15,5 @@ backend/uploads/
 
 adminlite/
 template/
+backend/pending_transactions.json
+pending_transactions.json
