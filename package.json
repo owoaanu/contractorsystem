@@ -3,10 +3,17 @@
   "version": "1.0.0",
   "description": "Edo State University Contractor Registration and Verification System",
   "scripts": {
-    "init-db": "cd backend && npm run init-db",
-    "build:frontend": "cd frontend && npm run build",
-    "build": "cd frontend && npm run build",
-    "start:backend": "cd backend && node server.js",
-    "start": "cd backend && node server.js"
+    "install:all": "npm --prefix backend install && npm --prefix frontend install",
+    "init-db": "npm --prefix backend run init-db",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "build:frontend": "npm --prefix frontend run build",
+    "build": "npm --prefix frontend run build",
+    "start:backend": "npm --prefix backend start",
+    "start": "npm --prefix backend start",
+    "start:pm2": "cd backend && pm2 start ecosystem.config.js --env production",
+    "reload:pm2": "cd backend && pm2 reload ecosystem.config.js --env production",
+    "stop:pm2": "cd backend && pm2 stop ecosystem.config.js",
+    "deploy": "./deploy.sh"
   }
 }
