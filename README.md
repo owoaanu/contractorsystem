@@ -195,8 +195,8 @@ DB_NAME=contractor_registration
 JWT_SECRET=super_secret_jwt_key_please_change_for_production
 
 # Remita Payment Gateway (Live or Demo Credentials)
-REMITA_MERCHANT_ID=17247647985
-REMITA_API_KEY=66c1f0f2a711fce75613e15af4bdf16a6e6bcdcf6e8ec23813cf60527caca94e9a85287b4dd171d2c61746c5f297ae051ab860024ce7a415d2a9956e12c3bbbc
+REMITA_MERCHANT_ID=your_remita_merchant_id
+REMITA_API_KEY=your_remita_api_key
 REMITA_BASE_URL=https://login.remita.net
 REMITA_TEST_BASE_URL=https://remitademo.net
 
@@ -221,7 +221,7 @@ VITE_API_URL=http://localhost:3000
 VITE_BASE_PATH=/
 
 # Remita Public Key & Inline Javascript
-VITE_REMITA_PUBLIC_KEY=RzAwMDA4ODcwODN8MTcyNDc2NDc5ODV8ZmY3ZTRiN2I0NTc5YjVjOTJmMDNmOWQyMjczZjhmZjM1ZmUyMTFkZGYwOTY4YTM2ZjFmMzYwNjMxMTA1ZmY0NmI3MDYxODAwZGQ2YmFjYjliNGM0MzhmOGJjNTQxZjllMDIxZjUzMDY2MmNkYjc4MDY4ZGY5N2U2NmZiNjUxOGI=
+VITE_REMITA_PUBLIC_KEY=your_remita_public_key
 VITE_REMITA_SCRIPT_URL=https://login.remita.net/payment/v1/remita-pay-inline.bundle.js
 ```
 
